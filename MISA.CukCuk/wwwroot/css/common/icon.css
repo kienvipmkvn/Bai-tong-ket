@@ -1,0 +1,36 @@
+﻿.icon-option-default-16 {
+    width: 16px;
+    height: 16px;
+    background-image: url('../../content/icon/option.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
+.icon-add {
+    width: 16px;
+    height: 16px;
+    background-image: url('../../content/icon/add.png');
+}
+
+.icon-syncHRM {
+    width: 16px;
+    height: 16px;
+    background-image: url('../../content/icon/radio-checked.png');
+    background-size: contain;
+}
+
+.icon-dropdown {
+    width: 16px;
+    height: 16px;
+    background-image: url('../../content/icon/dropdown.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.icon-search {
+    background-image: url('../../content/icon/search.png');
+    background-repeat: no-repeat;
+    background-position: 16px center;
+}

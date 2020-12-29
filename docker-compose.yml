@@ -1,0 +1,16 @@
+version: '3'
+networks: 
+  kiendt-network:
+    external: true
+services:
+  kiendt-cukcuk:
+    image: kiendt-cukcuk
+    container_name: kiendt-cukcuk
+    restart: always
+    networks:
+      - kiendt-network
+    ports:
+      - '9132:80'
+    build:
+      context: .
+      dockerfile: MISA.CukCuk/Dockerfile

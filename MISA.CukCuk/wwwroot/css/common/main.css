@@ -1,0 +1,47 @@
+﻿@import url('../../content/font/fontawesome-5.15.1/css/all.css');
+@import url('common.css');
+@import url('navbar.css');
+@import url('header.css');
+@import url('button.css');
+@import url('icon.css');
+@import url('toolbar.css');
+@import url('input.css');
+@import url('content.css');
+@import url('table.css');
+@import url('grid.css');
+@import url('dialog.css');
+@import url('ui-custom.css');
+@import url('radio.css');
+@import url('dropdown.css');
+@import url('scrollbar.css');
+
+body
+{
+    margin: 0;
+    font-family: GoogleSans-Regular;
+    font-size: 13px;
+}
+@font-face {
+    font-family: 'GoogleSans-Regular';
+    src: url('../../content/font/GoogleSans-Regular.otf');
+}
+@font-face {
+    font-family: 'GoogleSans-Bold';
+    src: url('../../content/font/GoogleSans-Bold.otf');
+}
+@font-face {
+    font-family: 'GoogleSans-Italic';
+    src: url('../../content/font/GoogleSans-Italic.otf');
+}
+@font-face {
+    font-family: 'GoogleSans-Light';
+    src: url('../../content/font/GoogleSans-Light.otf');
+}
+@font-face {
+    font-family: 'GoogleSans-Thin';
+    src: url('../../content/font/GoogleSans-Thin.otf');
+}
+@font-face {
+    font-family: 'GoogleSans-Black';
+    src: url('../../content/font/GoogleSans-Black.otf');
+}

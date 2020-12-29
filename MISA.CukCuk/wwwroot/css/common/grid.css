@@ -1,0 +1,7 @@
+﻿
+/* Grid */
+.grid {
+    width: 100%;
+    overflow: auto;
+    height: calc(100vh - 248px);
+}
