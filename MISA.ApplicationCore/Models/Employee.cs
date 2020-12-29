@@ -2,96 +2,130 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using MISA.ApplicationCore.Enum;
+using MISA.ApplicationCore.Enums;
 
 namespace MISA.ApplicationCore.Entities
 {
     /// <summary>
     /// Nhân viên
     /// </summary>
-    /// createdBy: dtKien (23/12/2020)
+    /// createdBy: dtKien (29/12/2020)
     public class Employee : BaseEntity
     {
         /// <summary>
-        /// khoá chính
+        /// Khoá chính
         /// </summary>
         [PrimaryKey]
         public Guid EmployeeId { get; set; }
+
         /// <summary>
-        /// mã nhân viên
+        /// Mã nhân viên
         /// </summary>
         [Required]
         [CheckDuplicate]
         [DisplayName("Mã nhân viên")]
         [MaxLength(20, "Mã nhân viên đã vượt quá 20 ký tự cho phép")]
         public string EmployeeCode { get; set; }
+
         /// <summary>
-        /// tên
-        /// </summary>
-        public string FirstName { get; set; }
-        /// <summary>
-        /// họ
-        /// </summary>
-        public string LastName { get; set; }
-        /// <summary>
-        /// họ và tên
+        /// Họ và tên
         /// </summary>
         [Required]
         [DisplayName("Họ và tên")]
         public string FullName { get; set; }
+
         /// <summary>
-        /// ngày sinh
+        /// Ngày sinh
         /// </summary>
         public DateTime? DateOfBirth { get; set; }
+
         /// <summary>
-        /// email
+        /// Email
         /// </summary>
         public string Email { get; set; }
 
         /// <summary>
-        /// số điện thoại
+        /// Số điện thoại
         /// </summary>
         [CheckDuplicate]
         [Required]
         [DisplayName("Số điện thoại")]
         public string PhoneNumber { get; set; }
+
         /// <summary>
-        /// giới tính
+        /// Giới tính
         /// </summary>
         public Gender? Gender { get; set; }
+
         /// <summary>
-        /// địa chỉ
+        /// Số CMT/CCCD
         /// </summary>
-        public string Address { get; set; }
+        [Required]
         public string IdentityNumber { get; set; }
-        public DateTime? IdentityDate { get; set; }
-        public string IdentityPlace { get; set; }
-        public int? MaritalStatus { get; set; }
+
         /// <summary>
-        /// trình độ học vấn
+        /// Ngày cấp CMT/CCCD
         /// </summary>
-        public int? EducationalBackground { get; set; }
-        public Guid? QualificationId { get; set; }
+        public DateTime? IdentityDate { get; set; }
+
         /// <summary>
-        /// mã bộ phận
+        /// Nơi cấp CMT/CCCD
+        /// </summary>
+        public string IdentityPlace { get; set; }
+
+        /// <summary>
+        /// Mã bộ phận
         /// </summary>
         public Guid? DepartmentId { get; set; }
+
         /// <summary>
-        /// mã vị trí
+        /// Mã vị trí
         /// </summary>
         public Guid? PositionId { get; set; }
-        public int? WorkStatus { get; set; }
+
         /// <summary>
-        /// mã số thuế cá nhân
+        /// Mã số thuế cá nhân
         /// </summary>
         public string PersonalTaxCode { get; set; }
+
         /// <summary>
-        /// lương
+        /// Lương
         /// </summary>
         public double? Salary { get; set; }
+
         /// <summary>
-        /// ngày gia nhập công ty
+        /// Ngày gia nhập công ty
         /// </summary>
         public DateTime? JoinDate { get; set; }
+
+        /// <summary>
+        /// Trạng thái công việc
+        /// </summary>
+        public WorkStatus? WorkStatus { get; set; }
+        public string WorkStatusName
+        {
+            get
+            {
+                var name = string.Empty;
+                switch (WorkStatus)
+                {
+                    case Enums.WorkStatus.Resign:
+                        name = Properties.Resources.Enum_WorkStatus_Resign;
+                        break;
+                    case Enums.WorkStatus.Working:
+                        name = Properties.Resources.Enum_WorkStatus_Working;
+                        break;
+                    case Enums.WorkStatus.TrailWork:
+                        name = Properties.Resources.Enum_WorkStatus_TrailWork;
+                        break;
+                    case Enums.WorkStatus.Retired:
+                        name = Properties.Resources.Enum_WorkStatus_Retired;
+                        break;
+                    default:
+                        break;
+                }
+                return name;
+            }
+        }
     }
 }

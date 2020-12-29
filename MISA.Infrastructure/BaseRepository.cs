@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection;
 using MISA.ApplicationCore.Models;
 using MISA.ApplicationCore.Interfaces;
-using MISA.ApplicationCore.Enum;
+using MISA.ApplicationCore.Enums;
 
 namespace MISA.Infrastructure
 {

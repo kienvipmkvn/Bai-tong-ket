@@ -7,9 +7,9 @@ using System.Text;
 
 namespace MISA.Infrastructure
 {
-    public class CustomerGroupRepository : BaseRepository<CustomerGroup>, ICustomerGroupRepository
+    public class DepartmentRepository : BaseRepository<Department>, IDepartmentRepository
     {
-        public CustomerGroupRepository(IConfiguration _configuration) : base(_configuration)
+        public DepartmentRepository(IConfiguration _configuration) : base(_configuration)
         {
 
         }

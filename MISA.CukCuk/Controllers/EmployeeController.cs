@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MISA.ApplicationCore.Entities;
-using MISA.ApplicationCore.Enum;
+using MISA.ApplicationCore.Enums;
 using MISA.ApplicationCore.Interfaces;
 using MISA.ApplicationCore.Models;
 

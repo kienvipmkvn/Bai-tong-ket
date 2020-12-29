@@ -8,7 +8,7 @@ namespace MISA.ApplicationCore.Models
     /// Lưu dữ liệu phân trang
     /// </summary>
     /// <typeparam name="T">Entity</typeparam>
-    /// createdBy: dtkien1 (18/12/2020)
+    /// createdBy: dtkien1 (29/12/2020)
     public class PaginationModel<T>
     {
         /// <summary>

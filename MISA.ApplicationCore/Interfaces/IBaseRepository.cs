@@ -6,7 +6,7 @@ using System.Text;
 namespace MISA.ApplicationCore.Interfaces
 {
     /// <summary>
-    /// createdBy: dtkien (20/12/2020)
+    /// createdBy: dtkien (29/12/2020)
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IBaseRepository<T>

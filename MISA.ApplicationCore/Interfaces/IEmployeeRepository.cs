@@ -7,7 +7,7 @@ namespace MISA.ApplicationCore.Interfaces
 {
     /// <summary>
     /// employee repository
-    /// createdBy: dtkien (23/12/2020)
+    /// createdBy: dtkien (29/12/2020)
     /// </summary>
     public interface IEmployeeRepository : IBaseRepository<Employee>
     {

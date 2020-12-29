@@ -208,7 +208,6 @@ class BaseJS {
                         me.isUpdating = false;
                     }
                     else appendElement += `<tr>`;
-                    appendElement += `<td class= "max-width-50px text-align-center" > ${i}</td >`;
 
                     $("table thead th[fieldName]").each((id, el) => {
                         listProp.push(el.getAttribute("fieldName"));
@@ -216,6 +215,7 @@ class BaseJS {
                         var isGender = el.getAttribute("gender");
                         var isDate = el.getAttribute("date");
                         var isSalary = el.getAttribute("salary");
+                        var isStt = el.getAttribute("stt");
 
                         if (isGender) {
                             appendElement += `<td class="${el.classList.value}" title="${getGender(entity[prop]) ?? "Không có dữ liệu!"}">${getGender(entity[prop]) ?? ""}</td>`;
@@ -223,6 +223,8 @@ class BaseJS {
                             appendElement += `<td class="${el.classList.value}" title="${formatDate(entity[prop]) ?? "Không có dữ liệu!"}">${formatDate(entity[prop]) ?? ""}</td >`;
                         } else if (isSalary) {
                             appendElement += `<td class="${el.classList.value}" title="${formatMoney(entity[prop]) ?? "Không có dữ liệu!"}">${formatMoney(entity[prop]) ?? ""}</td >`;
+                        } else if (isStt) {
+                            appendElement += `<td class= "max-width-50px text-align-center" > ${i}</td >`;
                         }
                         else appendElement += `<td class="${el.classList.value}" title="${entity[prop] ?? "Không có dữ liệu!"}">${entity[prop] ?? ""}</td>`;
                     })

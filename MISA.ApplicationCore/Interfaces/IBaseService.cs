@@ -9,7 +9,7 @@ namespace MISA.ApplicationCore.Interfaces
     /// service dùng chung
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// createdBy: dtkien (20/12/2020)
+    /// createdBy: dtkien (29/12/2020)
     public interface IBaseService<T>
     {
         /// <summary>

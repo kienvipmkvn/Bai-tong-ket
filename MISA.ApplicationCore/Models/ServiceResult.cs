@@ -1,4 +1,4 @@
-﻿using MISA.ApplicationCore.Enum;
+﻿using MISA.ApplicationCore.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +8,7 @@ namespace MISA.ApplicationCore.Models
     /// <summary>
     /// Kiểu dữ liệu trả về
     /// </summary>
-    /// createdBy: dtkien1 (14/12/2020)
+    /// createdBy: dtkien1 (29/12/2020)
     public class ServiceResult
     {
         /// <summary>
@@ -16,7 +16,7 @@ namespace MISA.ApplicationCore.Models
         /// </summary>
         public object Data { get; set; }
         /// <summary>
-        /// thông báo
+        /// Thông báo
         /// </summary>
         public string Messenger { get; set; }
         public MISACode MISACode { get; set; }

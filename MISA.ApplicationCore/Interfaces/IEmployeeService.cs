@@ -7,7 +7,7 @@ namespace MISA.ApplicationCore.Interfaces
 {
     /// <summary>
     /// employee service
-    /// createdBy: dtkien (23/12/2020)
+    /// createdBy: dtkien (29/12/2020)
     /// </summary>
     public interface IEmployeeService : IBaseService<Employee>
     {

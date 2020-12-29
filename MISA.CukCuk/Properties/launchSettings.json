@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "page/customer.html",
+      "launchUrl": "page/employee.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "MISA.CukCuk": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "page/customer.html",
+      "launchUrl": "page/employee.html",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -29,7 +29,7 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/page/customer.html",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/page/employee.html",
       "publishAllPorts": true
     }
   }

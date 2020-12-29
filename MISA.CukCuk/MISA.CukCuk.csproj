@@ -1742,7 +1742,6 @@
     <None Include="wwwroot\content\img\cukcuk-logo.png" />
     <None Include="wwwroot\content\img\default-avatar.jpg" />
     <None Include="wwwroot\content\img\toggle.png" />
-    <None Include="wwwroot\content\note.txt" />
     <None Include="wwwroot\css\common\button.css" />
     <None Include="wwwroot\css\common\common.css" />
     <None Include="wwwroot\css\common\content.css" />
@@ -1759,12 +1758,10 @@
     <None Include="wwwroot\css\common\table.css" />
     <None Include="wwwroot\css\common\toolbar.css" />
     <None Include="wwwroot\css\common\ui-custom.css" />
-    <None Include="wwwroot\css\page\customer.css" />
     <None Include="wwwroot\index.html" />
     <None Include="wwwroot\js\common\common.js" />
     <None Include="wwwroot\js\common\dropdown.js" />
     <None Include="wwwroot\js\common\sticky-header.js" />
-    <None Include="wwwroot\js\page\customer.js" />
     <None Include="wwwroot\lib\jquery-3.5.1.min.js" />
     <None Include="wwwroot\lib\jquery-ui-1.12.1.custom\AUTHORS.txt" />
     <None Include="wwwroot\lib\jquery-ui-1.12.1.custom\external\jquery\jquery.js" />
@@ -1784,7 +1781,6 @@
     <None Include="wwwroot\lib\jquery-ui-1.12.1.custom\jquery-ui.theme.css" />
     <None Include="wwwroot\lib\jquery-ui-1.12.1.custom\jquery-ui.theme.min.css" />
     <None Include="wwwroot\lib\jquery-ui-1.12.1.custom\LICENSE.txt" />
-    <None Include="wwwroot\page\customer.html" />
   </ItemGroup>
 
   <ItemGroup>

@@ -139,15 +139,15 @@
     <value>Đang làm việc</value>
   </data>
   <data name="Msg_Duplicate" xml:space="preserve">
-    <value>Thông tin {0} đã có trên hệ thống.</value>
+    <value>Thông tin {0} đã có trên hệ thống</value>
   </data>
   <data name="Msg_IsNotValid" xml:space="preserve">
     <value>Dữ liệu không hợp lệ</value>
   </data>
   <data name="Msg_MaxLength" xml:space="preserve">
-    <value>Thông tin này vượt quá {0} ký tự cho phép</value>
+    <value>Thông tin {0} chứa tối đa {1} ký tự</value>
   </data>
   <data name="Msg_Required" xml:space="preserve">
-    <value>Thông tin {0} không được phép để trống.</value>
+    <value>Thông tin {0} không được phép để trống</value>
   </data>
 </root>

@@ -5,13 +5,13 @@ using System.Text;
 namespace MISA.ApplicationCore.Models
 {
     /// <summary>
-    /// Nhóm khách hàng
+    /// Phòng ban
     /// </summary>
-    /// createdBy: dtkien1 (16/12/2020)
-    public class CustomerGroup : BaseEntity
+    /// createdBy: dtkien1 (29/12/2020)
+    public class Department : BaseEntity
     {
         #region Constructor
-        public CustomerGroup() { }
+        public Department() { }
         #endregion
 
         #region Properties
@@ -19,12 +19,14 @@ namespace MISA.ApplicationCore.Models
         /// Khoá chính
         /// </summary>
         [PrimaryKey]
-        public Guid CustomerGroupId { get; set; }
+        public Guid DepartmentId { get; set; }
+
         /// <summary>
-        /// Tên nhóm khách hàng
+        /// Tên phòng ban
         /// </summary>
         [Required]
-        public string CustomerGroupName { get; set; }
+        public string DepartmentName { get; set; }
+
         /// <summary>
         /// Mô tả
         /// </summary>

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MISA.ApplicationCore.Enum
+namespace MISA.ApplicationCore.Enums
 {
     /// <summary>
     /// MISACode để xác định trạng thái của việc validate
     /// </summary>
-    /// createdBy: dtkien1 (14/12/2020)
+    /// createdBy: dtkien1 (29/12/2020)
     public enum MISACode
     {
         /// <summary>

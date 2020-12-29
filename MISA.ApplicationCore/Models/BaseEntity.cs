@@ -1,4 +1,4 @@
-﻿using MISA.ApplicationCore.Enum;
+﻿using MISA.ApplicationCore.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -51,7 +51,7 @@ namespace MISA.ApplicationCore.Models
     /// <summary>
     /// Entity dùng chung
     /// </summary>
-    /// createdBy: dtkien1 (14/12/2020)
+    /// createdBy: dtkien1 (29/12/2020)
     public class BaseEntity
     {
         //Trạng thái object

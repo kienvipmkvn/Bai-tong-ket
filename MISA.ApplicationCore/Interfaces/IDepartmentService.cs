@@ -6,11 +6,10 @@ using System.Text;
 namespace MISA.ApplicationCore.Interfaces
 {
     /// <summary>
-    /// Customer group service
+    /// Department service
     /// </summary>
-    /// created by: dtkien1 (16/12/2020)
-    public interface ICustomerGroupService : IBaseService<CustomerGroup>
+    /// created by: dtkien1 (29/12/2020)
+    public interface IDepartmentService : IBaseService<Department>
     {
-
     }
 }

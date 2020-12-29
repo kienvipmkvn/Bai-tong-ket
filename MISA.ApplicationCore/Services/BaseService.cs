@@ -1,4 +1,4 @@
-﻿using MISA.ApplicationCore.Enum;
+﻿using MISA.ApplicationCore.Enums;
 using MISA.ApplicationCore.Interfaces;
 using MISA.ApplicationCore.Models;
 using System;
@@ -163,7 +163,7 @@ namespace MISA.ApplicationCore.Services
                     if (propertyValue != null && propertyValue.ToString().Trim().Length > length)
                     {
                         isValidate = false;
-                        mesArrayError.Add(msg ?? Properties.Resources.Msg_MaxLength.Replace("{0}", length.ToString()));
+                        mesArrayError.Add(msg ?? Properties.Resources.Msg_MaxLength.Replace("{0}", length.ToString()).Replace("{1}", displayName));
                         _serviceResult.MISACode = MISACode.NotValid;
                         _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
                     }

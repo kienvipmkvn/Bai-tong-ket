@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using MISA.ApplicationCore.Enum;
+using MISA.ApplicationCore.Enums;
 using MISA.ApplicationCore.Models;
 using Newtonsoft.Json;
 using System;

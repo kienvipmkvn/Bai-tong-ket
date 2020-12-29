@@ -6,11 +6,10 @@ using System.Text;
 namespace MISA.ApplicationCore.Interfaces
 {
     /// <summary>
-    /// Customer group repository
+    /// Position service
     /// </summary>
-    /// created by: dtkien1 (16/12/2020)
-    public interface ICustomerGroupRepository : IBaseRepository<CustomerGroup>
+    /// created by: dtkien1 (29/12/2020)
+    public interface IPositionService : IBaseService<Position>
     {
-
     }
 }

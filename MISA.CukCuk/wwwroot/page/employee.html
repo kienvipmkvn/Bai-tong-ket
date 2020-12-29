@@ -94,6 +94,14 @@
                        placeholder="Tìm kiếm theo mã nhân viên, họ tên" />
             </div>
             <div style="width: 16px"></div>
+            <div class="filter-left">
+                <div id="customGroupSelect" class="custom-select" style="width: 250px; height: 40px">
+                    <select id="groupSelectFilterBar" fieldId="PositionId" fieldName="PositionName">
+                        <option value="0">Vị trí, chức vụ</option>
+                    </select>
+                </div>
+            </div>
+            <div style="width: 16px"></div>
             <div class="filter-right">
                 <button class="m-btn-toolbar m-btn-download"></button>
                 <button id="btnRefresh" class="m-btn-toolbar m-btn-refresh"></button>
@@ -105,16 +113,16 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="max-width-50px" stt="true"></th>
-                        <th class="max-width-100px" fieldName="EmployeeCode">Mã nhân viên<i class="fas fa-sort sort-icon"></i></th>
+                        <th class="max-width-50px" fieldName="EmployeeCode">Mã nhân viên<i class="fas fa-sort sort-icon"></i></th>
                         <th class="max-width-100px" fieldName="FullName">Họ và tên<i class="fas fa-sort sort-icon"></i></th>
-                        <th class="max-width-100px" fieldName="Email">Email<i class="fas fa-sort sort-icon"></i></th>
                         <th class="max-width-50px" fieldName="Gender" gender="true">Giới tính<i class="fas fa-sort sort-icon"></i></th>
-                        <th class="max-width-100px" fieldName="PersonalTaxCode">Mã số thuế<i class="fas fa-sort sort-icon"></i></th>
-                        <th class="max-width-200px" fieldName="Salary" salary="true">Lương<i class="fas fa-sort sort-icon"></i></th>
                         <th class="max-width-100px" fieldName="DateOfBirth" date="true">Ngày sinh<i class="fas fa-sort sort-icon"></i></th>
-                        <th class="max-width-50px" fieldName="PhoneNumber">Điện thoại<i class="fas fa-sort sort-icon"></i></th>
-                        <th class="max-width-200px" fieldName="Address">Địa chỉ<i class="fas fa-sort sort-icon"></i></th>
+                        <th class="max-width-150px" fieldName="PhoneNumber">Điện thoại<i class="fas fa-sort sort-icon"></i></th>
+                        <th class="max-width-150px" fieldName="Email">Email<i class="fas fa-sort sort-icon"></i></th>
+                        <th class="max-width-100px" fieldName="PositionName">Chức vụ<i class="fas fa-sort sort-icon"></i></th>
+                        <th class="max-width-100px" fieldName="DepartmentName">Phòng ban<i class="fas fa-sort sort-icon"></i></th>
+                        <th class="max-width-100px text-align-right" fieldName="Salary" salary="true">Mức lương cơ bản<i class="fas fa-sort sort-icon"></i></th>
+                        <th class="max-width-100px" fieldName="WorkStatusName">Tình trạng công việc<i class="fas fa-sort sort-icon"></i></th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
