@@ -2,16 +2,12 @@
     document.addEventListener("click", closeAllSelect);
 })
 
-function dropdownFunction() {
+function dropdownFunction(number) {
     var x, i, j, l, ll, selElmnt, a, b, c;
     /*look for any elements with the class "custom-select":*/
-    x = document.getElementsByClassName("custom-select");
+    x = document.getElementsByClassName(`custom-select custom-select${number}`);
     l = x.length;
     for (i = 0; i < l; i++) {
-        //Nếu đã tạo custom select rồi thì bỏ qua
-        if (x[i].getElementsByClassName("select-items").length > 0) {
-            continue;
-        };
         selElmnt = x[i].getElementsByTagName("select")[0];
         ll = selElmnt.length;
         /*for each element, create a new DIV that will act as the selected item:*/

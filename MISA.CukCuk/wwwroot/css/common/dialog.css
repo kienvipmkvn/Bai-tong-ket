@@ -77,3 +77,11 @@
 .dialog-footer button {
   margin-left: 16px;
 }
+
+.header-seperator {
+    width: 80px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: #019160;
+    margin: 8px 0px;
+}

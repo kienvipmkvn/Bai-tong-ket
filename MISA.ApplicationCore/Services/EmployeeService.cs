@@ -20,14 +20,14 @@ namespace MISA.ApplicationCore.Services
             return true;
         }
 
-        public IEnumerable<Employee> GetEntityPaging(int pageSize, int pageIndex, string searchKey)
+        public IEnumerable<Employee> GetEntityPaging(int pageSize, int pageIndex, string searchKey, Guid? departmentId = null, Guid? positionId = null)
         {
-            return _employeeRepository.GetEntityPaging(pageSize, pageSize * pageIndex, searchKey);
+            return _employeeRepository.GetEntityPaging(pageSize, pageSize * pageIndex, searchKey, departmentId, positionId);
         }
 
-        public int GetCountCondition(string searchKey)
+        public int GetCountCondition(string searchKey, Guid? departmentId = null, Guid? positionId = null)
         {
-            return _employeeRepository.GetCountCondition(searchKey);
+            return _employeeRepository.GetCountCondition(searchKey, departmentId, positionId);
         }
     }
 }

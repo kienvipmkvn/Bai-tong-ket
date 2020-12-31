@@ -3,7 +3,7 @@
 }
 
 .el-avatar-customer {
-    width: 180px;
+    width: 130px;
 }
 
 .el-left {
@@ -12,9 +12,9 @@
 
 .el-avatar-customer .el-avatar {
     border: 1px solid #ccc;
-    width: 180px;
-    height: 180px;
-    margin: 0 auto;
+    width: 130px;
+    height: 130px;
+    margin: 0;
     border-radius: 50%;
     cursor: pointer;
     background-image: url('../../content/img/default-avatar.jpg');
@@ -25,4 +25,5 @@
 
 .el-avatar-note {
     font-size: 12px;
+    width: 130px;
 }

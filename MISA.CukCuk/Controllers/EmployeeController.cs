@@ -28,12 +28,12 @@ namespace MISA.CukCuk.Controllers
         /// <param name="pageIndex">Số thứ tự trang.</param>
         /// <returns></returns>
         [HttpGet("{pageSize}/{pageIndex}")]
-        public IActionResult GetPageEmployee(int pageSize, int pageIndex, string searchKey = "")
+        public IActionResult GetPageEmployee(int pageSize, int pageIndex, string searchKey = "", Guid? departmentId = null, Guid? positionId = null)
         {
             if (searchKey == null) searchKey = "";
             if (searchKey.Contains("'") || searchKey.Contains("\"")) throw new Exception("Không được dùng dấu nháy");
-            var entities = _employeeService.GetEntityPaging(pageSize, pageIndex, searchKey);
-            var totalItem = _employeeService.GetCountCondition(searchKey);
+            var entities = _employeeService.GetEntityPaging(pageSize, pageIndex, searchKey, departmentId, positionId);
+            var totalItem = _employeeService.GetCountCondition(searchKey, departmentId, positionId);
             var totalPage = (int)Math.Ceiling(1.0 * totalItem / pageSize);
             if (entities != null)
             {

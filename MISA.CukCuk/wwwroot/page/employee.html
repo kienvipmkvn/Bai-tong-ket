@@ -51,7 +51,7 @@
     </div>
     <div class="header">
         <div class="department-info">
-            <div class="custom-select no-border" style="width: 300px">
+            <div class="custom-select no-border custom-select-1" style="width: 300px">
                 <select>
                     <option>Công ty cổ phần MISA test AMIS1</option>
                     <option>Công ty cổ phần MISA test AMIS2</option>
@@ -95,15 +95,22 @@
             </div>
             <div style="width: 16px"></div>
             <div class="filter-left">
-                <div id="customGroupSelect" class="custom-select" style="width: 250px; height: 40px">
-                    <select id="groupSelectFilterBar" fieldId="PositionId" fieldName="PositionName">
-                        <option value="0">Vị trí, chức vụ</option>
+                <div id="customGroupSelect0" class="custom-select custom-select0" style="width: 250px; height: 40px">
+                    <select id="groupSelectFilterBar0" fieldId="DepartmentId" fieldName="DepartmentName">
+                        <option value="-1">Tất cả phòng ban</option>
+                    </select>
+                </div>
+            </div>
+            <div style="width: 16px"></div>
+            <div class="filter-left">
+                <div id="customGroupSelect1" class="custom-select custom-select1" style="width: 250px; height: 40px">
+                    <select id="groupSelectFilterBar1" fieldId="PositionId" fieldName="PositionName">
+                        <option value="-1">Tất cả vị trí</option>
                     </select>
                 </div>
             </div>
             <div style="width: 16px"></div>
             <div class="filter-right">
-                <button class="m-btn-toolbar m-btn-download"></button>
                 <button id="btnRefresh" class="m-btn-toolbar m-btn-refresh"></button>
             </div>
         </div>
@@ -113,7 +120,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="max-width-50px" fieldName="EmployeeCode">Mã nhân viên<i class="fas fa-sort sort-icon"></i></th>
+                        <th class="max-width-100px" fieldName="EmployeeCode">Mã nhân viên<i class="fas fa-sort sort-icon"></i></th>
                         <th class="max-width-100px" fieldName="FullName">Họ và tên<i class="fas fa-sort sort-icon"></i></th>
                         <th class="max-width-50px" fieldName="Gender" gender="true">Giới tính<i class="fas fa-sort sort-icon"></i></th>
                         <th class="max-width-100px" fieldName="DateOfBirth" date="true">Ngày sinh<i class="fas fa-sort sort-icon"></i></th>
@@ -158,18 +165,9 @@
                             Vui lòng chọn ảnh có định dạng <br><b>.jpg, .jpeg, .png, .gif. </b>
                         </div>
                     </div>
-                    <input id="txtFirstName" fieldName="FirstName" type="hidden" />
-                    <input id="txtLastName" fieldName="LastName" type="hidden" />
-                    <input id="txtIdentityNumber" fieldName="IdentityNumber" type="hidden" />
-                    <input id="dtIdentityDate" fieldName="IdentityDate" type="hidden" />
-                    <input id="txtIdentityPlace" fieldName="IdentityPlace" type="hidden" />
-                    <input id="txtMaritalStatus" fieldName="MaritalStatus" type="hidden" />
-                    <input id="txtEducationalBackground" fieldName="EducationalBackground" type="hidden" />
-                    <input id="txtQualificationId" fieldName="QualificationId" type="hidden" />
-                    <input id="txtDepartmentId" fieldName="DepartmentId" type="hidden" />
-                    <input id="txtPositionId" fieldName="PositionId" type="hidden" />
-                    <input id="txtWorkStatus" fieldName="WorkStatus" type="hidden" />
-                    <div class="m-col el-left  m-flex-2">
+                    <div class="m-col el-left  m-flex-3">
+                        <b>A. THÔNG TIN CHUNG</b>
+                        <div class="header-seperator"></div>
                         <div class="m-row mg-top-0 m-flex">
                             <div class="m-col m-flex-1">
                                 <div class="m-label">Mã nhân viên (<span class="label-required">*</span>)</div>
@@ -204,43 +202,106 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="m-row m-flex">
+                            <div class="m-flex-1">
+                                <div class="m-label">Số CMTND/Căn cước (<span class="label-required">*</span>)</div>
+                                <div class="m-control"><input id="txtIdentityNumber" fieldName="IdentityNumber" class="input-required" type="text" required /></div>
+                            </div>
+                            <div class="m-flex-1 mg-left-10px">
+                                <div class="m-label">Ngày cấp</div>
+                                <div class="m-control">
+                                    <input id="dtIdentityDate" fieldName="IdentityDate" type="date" />
+                                </div>
+                            </div>
 
                         </div>
                         <div class="m-row m-flex">
-                            <div class="m-col m-flex-1">
-                                <div class="m-label">Ngày gia nhập</div>
-                                <div class="m-control"><input id="dtJoinDate" fieldName="JoinDate" type="date" /></div>
+                            <div class="m-flex-1">
+                                <div class="m-label">Nơi cấp</div>
+                                <div class="m-control">
+                                    <input id="txtIdentityPlace" fieldName="IdentityPlace" type="text" />
+                                </div>
+                            </div>
+                            <div class="m-flex-1 mg-left-10px">
+                                <div class="m-label"></div>
+                                <div class="m-control">
+                                    <input type="hidden" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-row m-flex">
+                            <div class="m-flex-1">
+                                <div class="m-label">Email (<span class="label-required">*</span>)</div>
+                                <div class="m-control">
+                                    <input id="txtEmail" fieldName="Email" class="input-required" type="text" required />
+                                </div>
+                            </div>
+                            <div class="m-flex-1 mg-left-10px">
+                                <div class="m-label">Số điện thoại (<span class="label-required">*</span>)</div>
+                                <div class="m-control">
+                                    <input id="txtPhoneNumber" fieldName="PhoneNumber" type="text" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div style="height: 30px"></div>
+                        <b>B. THÔNG TIN CÔNG VIỆC</b>
+                        <div class="header-seperator"></div>
+                        <div class="m-row mg-top-0 m-flex">
+                            <div class="m-flex-1">
+                                <div class="m-label">Vị trí</div>
+                                <div class="custom-select custom-select1">
+                                    <select id="groupSelectDialog1" fieldName="PositionId" class="m-control">
+                                        <option value="0">Không chọn</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="m-flex-1 mg-left-10px">
+                                <div class="m-label">Phòng ban</div>
+                                <div class="custom-select custom-select0">
+                                    <select id="groupSelectDialog0" fieldName="DepartmentId" class="m-control">
+                                        <option value="0">Không chọn</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-row m-flex">
+                            <div class="m-flex-1">
+                                <div class="m-label">Mã số thuế cá nhân</div>
+                                <div class="m-control">
+                                    <input id="txtPersonalTaxCode" fieldName="PersonalTaxCode" type="text" />
+                                </div>
+                            </div>
+                            <div class="m-flex-1 mg-left-10px">
+                                <div class="m-label">Mức lương cơ bản</div>
+                                <div class="m-control">
+                                    <input id="txtSalary" fieldName="Salary" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-row m-flex">
+                            <div class="m-flex-1">
+                                <div class="m-label">Ngày gia nhập công ty</div>
+                                <div class="m-control">
+                                    <input id="dtJoinDate" fieldName="JoinDate" type="date" />
+                                </div>
+                            </div>
+                            <div class="m-flex-1 mg-left-10px">
+                                <div class="m-label">Tình trạng công việc</div>
+                                <div class="custom-select custom-select2">
+                                    <select id="groupSelectDialog2" fieldName="WorkStatus" class="m-control">
+                                        <option value="-1">Không chọn</option>
+                                        <option value="0">Đã nghỉ việc</option>
+                                        <option value="1">Đang làm việc</option>
+                                        <option value="2">Đang thử việc</option>
+                                        <option value="3">Đã nghỉ hưu</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="m-row m-flex">
-                    <div class="m-flex-2">
-                        <div class="m-label">Email</div>
-                        <div class="m-control"><input id="txtEmail" fieldName="Email" type="email" placeholder="example@domain.com" /></div>
-                    </div>
-                    <div class="m-flex-1 mg-left-10px">
-                        <div class="m-label">Số điện thoại (<span class="label-required">*</span>)</div>
-                        <div class="m-control"><input id="txtPhoneNumber" fieldName="PhoneNumber" class="input-required" type="tel" required phoneNumber /></div>
-                    </div>
-                </div>
-                <div class="m-row m-flex">
-                    <div class="m-flex-2">
-                        <div class="m-label">Mã số thuế</div>
-                        <div class="m-control"><input id="txtPersonalTaxCode" type="text" fieldName="PersonalTaxCode" /></div>
-                    </div>
-                    <div class="m-flex-1 mg-left-10px">
-                        <div class="m-label">Lương</div>
-                        <div class="m-control"><input id="txtSalary" type="number" fieldName="Salary"/></div>
-                    </div>
-                </div>
-                <div class="m-row m-flex">
-                    <div class="m-flex-3">
-                        <div class="m-label">Địa chỉ</div>
-                        <div class="m-control"><input id="txtAddress" fieldName="Address" type="text" /></div>
-                    </div>
-                </div>
             </div>
             <div class="dialog-footer">
                 <button id="btnCancel" class="m-btn m-btn-default m-btn-cancel">Hủy</button>

@@ -42,6 +42,7 @@ namespace MISA.ApplicationCore.Entities
         /// <summary>
         /// Email
         /// </summary>
+        [Required]
         public string Email { get; set; }
 
         /// <summary>
@@ -61,6 +62,8 @@ namespace MISA.ApplicationCore.Entities
         /// Số CMT/CCCD
         /// </summary>
         [Required]
+        [CheckDuplicate]
+        [DisplayName("Số CMT/CCCD")]
         public string IdentityNumber { get; set; }
 
         /// <summary>
@@ -77,11 +80,20 @@ namespace MISA.ApplicationCore.Entities
         /// Mã bộ phận
         /// </summary>
         public Guid? DepartmentId { get; set; }
+        /// <summary>
+        /// Tên bộ phận
+        /// </summary>
+        public string DepartmentName { get; set; }
 
         /// <summary>
         /// Mã vị trí
         /// </summary>
         public Guid? PositionId { get; set; }
+
+        /// <summary>
+        /// Tên vị trí
+        /// </summary>
+        public string PositionName { get; set; }
 
         /// <summary>
         /// Mã số thuế cá nhân

@@ -3,7 +3,8 @@
     dialogDetail = $("#dialog-detail").dialog({
         autoOpen: false,
         fluid: true,
-        minWidth: 700,
+        minWidth: 600,
+        width: 800,
         resizable: true,
         position: ({ my: "center", at: "center", of: window }),
         modal: true,
@@ -23,11 +24,13 @@
 
 class EmployeeJS extends BaseJS {
     constructor() {
-        super("EmployeeId", false);
-        dropdownFunction();
+        super("EmployeeId");
+        dropdownFunction(-1);
+        dropdownFunction(2);
     }
 
     setApiRouter() {
         this.entityRouter = "/api/v1/employee";
+        this.dropdownRouters.push(...["/api/v1/department", "/api/v1/position"]);
     }
 }

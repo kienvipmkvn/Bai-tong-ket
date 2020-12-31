@@ -18,13 +18,13 @@ namespace MISA.ApplicationCore.Interfaces
         /// <param name="pageIndex">số thứ tự trang</param>
         /// <param name="searchKey">từ khoá tìm kiếm</param>
         /// <returns></returns>
-        IEnumerable<Employee> GetEntityPaging(int pageSize, int pageIndex, string searchKey);
+        IEnumerable<Employee> GetEntityPaging(int pageSize, int pageIndex, string searchKey, Guid? departmentId = null, Guid? positionId = null);
         /// <summary>
         /// số lượng bản ghi thoả mãn điều kiện
         /// </summary>
         /// <param name="searchKey">từ khoá tìm kiếm</param>
         /// <param name="customerGroupId">nhóm khách hàng</param>
         /// <returns></returns>
-        int GetCountCondition(string searchKey);
+        int GetCountCondition(string searchKey, Guid? departmentId = null, Guid? positionId = null);
     }
 }

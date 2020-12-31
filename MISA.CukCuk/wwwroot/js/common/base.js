@@ -9,27 +9,35 @@ class BaseJS {
         this.pageSize = 17;
         this.totalPage = 0;
         this.host = "";
+        this.dropdownRouters = [];
         this.setApiRouter();
         this.initEvents();
         this.loadData(this.pageIndex, this.pageSize);
-        if (isHaveDropdown) this.loadGroup();
+        if (isHaveDropdown) {
+            var i = 0;
+            for (var router of this.dropdownRouters) {
+                this.loadDropdownData(i, router);
+                i++;
+            }
+        }
         this.entityState = MISAEnum.EntityState.AddNew;
         this.currentEntity = null;
         this.currentSearchKey = null;
-        this.currentEntityGroup = null;
         this.isUpdating = false;
+        this.currentDropdowns = {};
+        this.dropdownValues = [];
     }
 
     /**
      * set đường dẫn api
-     * createdBy: dtkien1 (16/12/2020)
+     * createdBy: dtkien1 (29/12/2020)
      */
     setApiRouter() {
     }
 
     /**
      * Đăng ký các sự kiện
-     * createdBy: dtkien1 (16/12/2020)
+     * createdBy: dtkien1 (29/12/2020)
      */
     initEvents() {
         var me = this;
@@ -44,14 +52,14 @@ class BaseJS {
 
         // Load lại dữ liệu khi nhấn button nạp:
         $('#btnRefresh').click(function () {
-            me.loadData(me.pageIndex, me.pageSize, me.currentSearchKey, me.currentEntityGroup);
+            me.loadData(me.pageIndex, me.pageSize, me.currentSearchKey, me.currentDropdowns);
         })
 
         //sự kiện click first page
         $(".m-btn-firstpage").click(function () {
             if (me.pageIndex != 0) {
                 me.pageIndex = 0;
-                me.loadData(0, me.pageSize, me.currentSearchKey, me.currentEntityGroup);
+                me.loadData(0, me.pageSize, me.currentSearchKey, me.currentDropdowns);
             }
         })
 
@@ -59,21 +67,21 @@ class BaseJS {
         $(".m-btn-lastpage").click(function () {
             if (me.pageIndex != me.totalPage - 1) {
                 me.pageIndex = me.totalPage - 1;
-                me.loadData(me.totalPage - 1, me.pageSize, me.currentSearchKey, me.currentEntityGroup);
+                me.loadData(me.totalPage - 1, me.pageSize, me.currentSearchKey, me.currentDropdowns);
             }
         })
 
         //sự kiện click previous page
         $(".m-btn-prev-page").click(function () {
             if (me.pageIndex - 1 >= 0) {
-                me.loadData(--me.pageIndex, me.pageSize, me.currentSearchKey, me.currentEntityGroup);
+                me.loadData(--me.pageIndex, me.pageSize, me.currentSearchKey, me.currentDropdowns);
             }
         })
 
         //sự kiện click next page
         $(".m-btn-next-page").click(function () {
             if (me.pageIndex + 1 < me.totalPage) {
-                me.loadData(++me.pageIndex, me.pageSize, me.currentSearchKey, me.currentEntityGroup);
+                me.loadData(++me.pageIndex, me.pageSize, me.currentSearchKey, me.currentDropdowns);
             }
         })
 
@@ -81,22 +89,22 @@ class BaseJS {
         $("#pageButton1").click(function () {
             if ($("#pageButton1").hasClass("btn-pagenumber-selected")) return;
             if (me.totalPage < 1) return;
-            me.loadData(parseInt($("#pageButton1").text()) - 1, me.pageSize, me.currentSearchKey, me.currentEntityGroup);
+            me.loadData(parseInt($("#pageButton1").text()) - 1, me.pageSize, me.currentSearchKey, me.currentDropdowns);
         })
         $("#pageButton2").click(function () {
             if ($("#pageButton2").hasClass("btn-pagenumber-selected")) return;
             if (me.totalPage < 2) return;
-            me.loadData(parseInt($("#pageButton2").text()) - 1, me.pageSize, me.currentSearchKey, me.currentEntityGroup);
+            me.loadData(parseInt($("#pageButton2").text()) - 1, me.pageSize, me.currentSearchKey, me.currentDropdowns);
         })
         $("#pageButton3").click(function () {
             if ($("#pageButton3").hasClass("btn-pagenumber-selected")) return;
             if (me.totalPage < 3) return;
-            me.loadData(parseInt($("#pageButton3").text()) - 1, me.pageSize, me.currentSearchKey, me.currentEntityGroup);
+            me.loadData(parseInt($("#pageButton3").text()) - 1, me.pageSize, me.currentSearchKey, me.currentDropdowns);
         })
         $("#pageButton4").click(function () {
             if ($("#pageButton4").hasClass("btn-pagenumber-selected")) return;
             if (me.totalPage < 4) return;
-            me.loadData(parseInt($("#pageButton4").text()) - 1, me.pageSize, me.currentSearchKey, me.currentEntityGroup);
+            me.loadData(parseInt($("#pageButton4").text()) - 1, me.pageSize, me.currentSearchKey, me.currentDropdowns);
         })
 
         // Ẩn form chi tiết khi nhấn hủy:
@@ -122,25 +130,24 @@ class BaseJS {
         //sự kiện thay đổi nội dung tìm kiếm
         $("#txtSearch").change(() => {
             me.currentSearchKey = $("#txtSearch").val();
-            me.loadData(0, me.pageSize, me.currentSearchKey, me.currentEntityGroup);
+            me.loadData(0, me.pageSize, me.currentSearchKey, me.currentDropdowns);
         })
     }
 
     /**
      * Hiển thị đúng group của entity được chọn
      * @param {any} id
-     * createdBy: dtkien1 (24/12/2020)
+     * createdBy: dtkien1 (29/12/2020)
      */
-    getEntityGroup(id) {
-        var divs = $("#dialog-detail .select-items div");
-
+    getEntityDropdown(id, el) {
+        var divs = el.nextElementSibling.nextElementSibling.getElementsByTagName("div");
         if (id == null) {
             for (var div of divs) {
                 div.classList.remove("same-as-selected");
             }
 
             divs[0].classList.add("same-as-selected");
-            $("#dialog-detail .select-selected").text(divs[0].innerText);
+            el.nextElementSibling.innerText = divs[0].innerText;
             return;
         }
 
@@ -151,36 +158,45 @@ class BaseJS {
             div.classList.remove("same-as-selected");
             if (div.getAttribute("value") == id) {
                 div.classList.add("same-as-selected");
-                $("#dialog-detail .select-selected").text(div.innerText);
+                el.nextElementSibling.innerText = div.innerText;
                 isGroupValid = true;
             }
         }
 
         if (!isGroupValid) {
             divs[0].classList.add("same-as-selected");
-            $("#dialog-detail .select-selected").text(divs[0].innerText);
+            el.nextElementSibling.innerText = divs[0].innerText;
         }
     }
 
     /**
      * load dữ liệu vào grid
-     * CreatedBy: dtkien1 (10/12/2020)
+     * CreatedBy: dtkien1 (29/12/2020)
      * @param {any} pageIndex: số thứ tự trang
      * @param {any} pageSize: số bản ghi trong 1 trang
      * @param {any} searchKey: từ khoá tìm kiếm theo tên khách hàng
      * @param {any} entityGroupId: id nhóm khách hàng
      */
-    loadData(pageIndex, pageSize, searchKey = null, entityGroupId = null) {
+    loadData(pageIndex, pageSize, searchKey = null, dropdownValue = null) {
         var me = this;
         $('#tableBody').empty();
-
         var url = me.host + me.entityRouter + "/" + pageSize + "/" + pageIndex;
 
         if (searchKey != null) {
             url += `?searchKey=${me.currentSearchKey}`;
-            if (entityGroupId != null && entityGroupId != 0) url += `&entityGroupId=${me.currentEntityGroup}`;
+            var paramStr = "";
+            for (var prop in dropdownValue) {
+                if (dropdownValue[prop] && dropdownValue[prop] != -1) paramStr += `&${prop}=${dropdownValue[prop]}`;
+            }
+            url += paramStr;
         }
-        else if (entityGroupId != null && entityGroupId != 0) url += `?entityGroupId=${me.currentEntityGroup}`;
+        else {
+            var paramStr = "?";
+            for (var prop in dropdownValue) {
+                if (dropdownValue[prop] && dropdownValue[prop] != -1) paramStr += `${prop}=${dropdownValue[prop]}&`;
+            }
+            url += paramStr;
+        }
 
         //hiện loading
         $('.loading-modal').removeClass('loaded');
@@ -202,12 +218,13 @@ class BaseJS {
                 //Bind dữ liệu vào grid
                 var appendElement = "";
                 var i = pageIndex * pageSize + 1;
+                var index = 0;
                 for (var entity of me.entities) {
                     if (me.isUpdating && me.currentEntity[me.idPropertyName] == entity[me.idPropertyName]) {
-                        appendElement += `<tr class="selected-row">`;
+                        appendElement += `<tr class="selected-row" index="${index}">`;
                         me.isUpdating = false;
                     }
-                    else appendElement += `<tr>`;
+                    else appendElement += `<tr index="${index}">`;
 
                     $("table thead th[fieldName]").each((id, el) => {
                         listProp.push(el.getAttribute("fieldName"));
@@ -231,6 +248,7 @@ class BaseJS {
 
                     appendElement += `</tr>`;
                     i++;
+                    index++;
                 }
                 $("#tableBody").append(appendElement)
 
@@ -260,63 +278,67 @@ class BaseJS {
     }
 
     //load danh sách nhóm khách hàng
-    loadGroup() {
+    loadDropdownData(i, router) {
         var me = this;
+
         try {
             $.ajax({
-                url: me.host + me.entityGroupRouter,
+                url: me.host + router,
                 method: "GET",
                 async: true,
             }).done(function (res) {
                 if (res.MISACode != MISAEnum.MISACode.Success) throw res.Message;
-                me.entityGroups = res.Data;
+                me.dropdownValues.push(res.Data);
+                var dropdownsValues = res.Data;
 
                 var propId;
                 var propName;
-                $("#groupSelectFilterBar").each((id, el) => {
+                $(`#groupSelectFilterBar${i}`).each((id, el) => {
                     propId = el.getAttribute("fieldId");
                     propName = el.getAttribute("fieldName");
                 });
 
-                for (var group of me.entityGroups) {
-                    $("#groupSelectFilterBar").append(
-                        `<option value="${group[propId]}">${group[propName]}</option>`
+                for (var value of dropdownsValues) {
+                    $(`#groupSelectFilterBar${i}`).append(
+                        `<option value="${value[propId]}">${value[propName]}</option>`
                     );
-                    $("#groupSelectDialog").append(
-                        `<option value="${group[propId]}">${group[propName]}</option>`
+                    $(`#groupSelectDialog${i}`).append(
+                        `<option value="${value[propId]}">${value[propName]}</option>`
                     )
                 }
-                dropdownFunction();
 
+                dropdownFunction(i);
                 //bind event filter nhóm khách hàng
-                $("#customGroupSelect .select-items div").click(function (e) {
-                    me.currentEntityGroup = e.target.getAttribute("value");
-                    me.loadData(0, me.pageSize, me.currentSearchKey, me.currentEntityGroup)
+                $(`#customGroupSelect${i} .select-items div`).click(function (e) {
+                    me.currentDropdowns[propId] = e.target.getAttribute("value");
+                    me.loadData(0, me.pageSize, me.currentSearchKey, me.currentDropdowns);
                 })
             })
                 .fail(function (res) {
                     console.log(res);
-                    dropdownFunction();
+                    dropdownFunction(i);
                 })
-        } catch (e) {
-            dropdownFunction();
+
+        }
+        catch (e) {
             console.log(e);
+            dropdownFunction(i);
         }
     }
 
     /**
      * sự kiện dbclick 1 bản ghi
-     * CreatedBy: dtkien1 (10/12/2020)
+     * CreatedBy: dtkien1 (29/12/2020)
      */
     rowDbClick(e) {
         var me = this;
         me.method = "PUT"
         dialogDetail.dialog('open');
         $("#btnDelete").removeClass("display-none");
+        $("input").removeClass('border-red');
 
-        var index = parseInt(e.currentTarget.cells[0].innerText);
-        index = index - me.pageIndex * me.pageSize;
-        var selectedEntity = me.entities[index - 1];
+        var index = e.currentTarget.getAttribute("index");
+        var selectedEntity = me.entities[index];
         me.currentEntity = selectedEntity;
         me.entityState = MISAEnum.EntityState.Update;
 
@@ -341,28 +363,37 @@ class BaseJS {
                 }
             }
             //TH dropdown
+            else if (el.tagName == "SELECT") {
+                me.getEntityDropdown(selectedEntity[prop], el);
+            }
+            //TH khác
             else {
-                me.getEntityGroup(selectedEntity[prop]);
+                $('#txt' + prop).val(selectedEntity[prop]);
             }
         })
     }
 
     /**
      * sự kiện click button thêm mới
-     * CreatedBy: dtkien1 (10/12/2020)
+     * CreatedBy: dtkien1 (29/12/2020)
      */
     btnAddOnClick() {
+        var me = this;
         this.currentEntity = null;
         this.method = "POST"
         this.entityState = MISAEnum.EntityState.AddNew;
         dialogDetail.dialog('open');
         $("#btnDelete").addClass("display-none");
-        $('input').val(null);
+        $("input").removeClass('border-red');
+        $("#dialog-detail select[fieldName]").each(function (id, el) {
+            me.getEntityDropdown(-1, el);
+        })
+        $('#dialog-detail input[fieldName]').val(null);
     }
 
     /**
      * sự kiện click button lưu
-     * CreatedBy: dtkien1 (14/12/2020)
+     * CreatedBy: dtkien1 (29/12/2020)
      */
     btnSaveOnClick() {
         var me = this;
@@ -375,6 +406,7 @@ class BaseJS {
 
             // Check với trường hợp input là radio, thì chỉ lấy value của input có attribute là checked:
             if ($(this).attr('type') == "radio") {
+                debugger
                 if (this.checked) {
                     entity[propertyName] = value;
                 }
@@ -383,7 +415,7 @@ class BaseJS {
             else if (this.tagName == "SELECT") {
                 var select = $(this).next().next();
                 var selectedValue = $(".same-as-selected", select).attr("value");
-                if (!!selectedValue && selectedValue != 0)
+                if (!!selectedValue && selectedValue != -1)
                     entity[propertyName] = selectedValue;
             }
 
@@ -408,7 +440,7 @@ class BaseJS {
 
     /**
      * sự kiện click button xoá
-     * CreatedBy: dtkien1 (14/12/2020)
+     * CreatedBy: dtkien1 (29/12/2020)
      */
     btnDeleteOnClick() {
         var me = this;
@@ -420,7 +452,7 @@ class BaseJS {
     /**
      * Cập nhập dữ liệu
      * @param {any} data
-     * cretedBy: dtkien (14/12/2020)
+     * cretedBy: dtkien (29/12/2020)
      */
     insertData(data) {
         var me = this;
@@ -437,7 +469,7 @@ class BaseJS {
             }).done(res => {
                 me.setResultDialogTitle(MISAText.Message.InsertSuccess);
                 dialogDetail.dialog('close');
-                me.loadData(0, me.pageSize, me.currentSearchKey, me.currentEntityGroup);
+                me.loadData(0, me.pageSize, me.currentSearchKey, me.currentDropdowns);
             })
                 .fail(res => {
                     console.log(res)
@@ -461,7 +493,7 @@ class BaseJS {
     /**
      * Cập nhập dữ liệu
      * @param {any} data
-     * cretedBy: dtkien (14/12/2020)
+     * cretedBy: dtkien (29/12/2020)
      */
     updateData(data) {
         var me = this;
@@ -477,7 +509,7 @@ class BaseJS {
                 data: JSON.stringify(data)
             }).done(res => {
                 me.setResultDialogTitle(MISAText.Message.UpdateSuccess);
-                me.loadData(me.pageIndex, me.pageSize, me.currentSearchKey, me.currentEntityGroup);
+                me.loadData(me.pageIndex, me.pageSize, me.currentSearchKey, me.currentDropdowns);
             })
                 .fail(res => {
                     $('.loading-modal').addClass('loaded');
@@ -500,7 +532,7 @@ class BaseJS {
 
     /**
      * Xoá dữ liệu
-     * cretedBy: dtkien (14/12/2020)
+     * cretedBy: dtkien (29/12/2020)
      */
     deleteData() {
         var me = this;
@@ -513,7 +545,7 @@ class BaseJS {
             }).done(() => {
                 me.setResultDialogTitle(MISAText.Message.DeleteSuccess);
                 dialogDetail.dialog('close');
-                me.loadData(me.pageIndex, me.pageSize, me.currentSearchKey, me.currentEntityGroup);
+                me.loadData(me.pageIndex, me.pageSize, me.currentSearchKey, me.currentDropdowns);
             })
                 .fail(res => {
                     $('.loading-modal').addClass('loaded');
@@ -537,7 +569,7 @@ class BaseJS {
 
     /**
      * Lấy giá trị trong custom dropdown
-     * createdBy: dtkien(16/12/2020)
+     * createdBy: dtkien(29/12/2020)
      */
     getCustomDropdownValue() {
         var value = $("#groupSelectDialog .same-as-selected").attr("value");
@@ -547,7 +579,7 @@ class BaseJS {
 
     /**
      * Lấy giá trị giới tính trong radio button group
-     * createdBy: dtkien(16/12/2020)
+     * createdBy: dtkien(29/12/2020)
      */
     getGender() {
         if ($("#rdGender #rdMale")[0].checked) return MISAEnum.GenderId.Male;
@@ -558,7 +590,7 @@ class BaseJS {
 
     /**
      * Check dữ liệu nhập vào
-     * createdBy: dtkien(16/12/2020)
+     * createdBy: dtkien(29/12/2020)
      */
     checkInputData() {
         //check required
@@ -587,8 +619,8 @@ class BaseJS {
     }
 
     /**
-     * Hiển thị phân trang chính xác
-     * createdBy: dtkien(16/12/2020)
+     * Hiển thị kết quả
+     * createdBy: dtkien(29/12/2020)
      * */
     setResultDialogTitle(title, message = "") {
         $("#ui-id-2").text(title);
