@@ -406,7 +406,6 @@ class BaseJS {
 
             // Check với trường hợp input là radio, thì chỉ lấy value của input có attribute là checked:
             if ($(this).attr('type') == "radio") {
-                debugger
                 if (this.checked) {
                     entity[propertyName] = value;
                 }
