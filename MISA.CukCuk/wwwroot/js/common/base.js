@@ -131,6 +131,16 @@ class BaseJS {
             me.currentSearchKey = $("#txtSearch").val();
             me.loadData(0, me.pageSize, me.currentSearchKey, me.currentDropdowns);
         })
+
+        //sự kiện thay đổi giá trị tiền tệ
+        $("input[money]").on({
+            keyup: function () {
+                formatCurrency($(this));
+            },
+            blur: function () {
+                formatCurrency($(this), "blur");
+            }
+        });
     }
 
     /**
@@ -375,7 +385,13 @@ class BaseJS {
                 }
                 //trường hợp khác
                 else {
-                    $('#txt' + prop).val(selectedEntity[prop]);
+                    if (el.getAttribute("money")) {
+                        console.log(el)
+                        console.log(formatCurrency($(el).val()))
+                        $("#txt" + prop).val(formatCurrency($(el)));
+                    }
+
+                    else $('#txt' + prop).val(selectedEntity[prop]);
                 }
             }
             //TH dropdown
