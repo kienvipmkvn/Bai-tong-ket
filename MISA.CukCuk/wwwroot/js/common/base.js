@@ -109,13 +109,12 @@ class BaseJS {
 
         // Ẩn form chi tiết khi nhấn hủy:
         $('#btnCancel').click(function () {
-            // Hiển thị dialog thông tin chi tiết:
             dialogDetail.dialog('close');
         })
 
         //validate input
         $('input[required]').blur(function (e) {
-            if (e.currentTarget.value == '') {
+            if (e.currentTarget.value.trim() == '') {
                 $(this).addClass('border-red');
             }
         }).focus(function () {
@@ -327,6 +326,23 @@ class BaseJS {
     }
 
     /**
+     * Lấy mã nhân viên tiếp theo
+     * createdBy: dtkien1 (4/1/2021)
+     * */
+    getNextEntityCode() {
+        var me = this;
+        try {
+            return $.ajax({
+                url: me.host + me.entityRouter + "/nextEmployeeCode",
+                method: "GET",
+                async: true
+            })
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    /**
      * sự kiện dbclick 1 bản ghi
      * CreatedBy: dtkien1 (29/12/2020)
      */
@@ -377,18 +393,20 @@ class BaseJS {
      * sự kiện click button thêm mới
      * CreatedBy: dtkien1 (29/12/2020)
      */
-    btnAddOnClick() {
+    async btnAddOnClick() {
         var me = this;
         this.currentEntity = null;
         this.method = "POST"
         this.entityState = MISAEnum.EntityState.AddNew;
-        dialogDetail.dialog('open');
+        var nextCodeResult = await me.getNextEntityCode();
         $("#btnDelete").addClass("display-none");
         $("input").removeClass('border-red');
         $("#dialog-detail select[fieldName]").each(function (id, el) {
             me.getEntityDropdown(-1, el);
         })
         $('#dialog-detail input[fieldName]').val(null);
+        $(`#txt${me.idPropertyName.replace("Id", "Code")}`).val(nextCodeResult.Data ?? "");
+        dialogDetail.dialog('open');
     }
 
     /**
@@ -406,7 +424,6 @@ class BaseJS {
 
             // Check với trường hợp input là radio, thì chỉ lấy value của input có attribute là checked:
             if ($(this).attr('type') == "radio") {
-                debugger
                 if (this.checked) {
                     entity[propertyName] = value;
                 }
@@ -445,8 +462,21 @@ class BaseJS {
     btnDeleteOnClick() {
         var me = this;
         me.method = "DELETE";
-        var yes = confirm(MISAText.Message.DeleteConfirm);
-        if (yes) me.deleteData();
+
+        $("#ui-id-3").removeClass("ui-dialog-title")
+        $("#ui-id-3").text(`Bạn có chắc chắn muốn xoá nhân viên ${me.currentEntity[me.idPropertyName.replace("Id", "Code")]}`)
+        dialogConfirm.dialog("open");
+
+        $("#btnCancelDelete").unbind('click');
+        $("#btnConfirmDelete").unbind('click');
+
+        $("#btnCancelDelete").click(function () {
+            dialogConfirm.dialog('close');
+        })
+        $("#btnConfirmDelete").click(function () {
+            dialogConfirm.dialog('close');
+            me.deleteData();
+        })
     }
 
     /**
@@ -566,7 +596,6 @@ class BaseJS {
         }
     }
 
-
     /**
      * Lấy giá trị trong custom dropdown
      * createdBy: dtkien(29/12/2020)
@@ -607,13 +636,24 @@ class BaseJS {
         //check số điện thoại
         var inputPhoneNumberCheck = true;
         $("input[phoneNumber]").each((id, inputElement) => {
-            var regex = new RegExp(/^(\+)?([0-9]){8,11}$/);
+            var regex = /^(\+)?([0-9]){8,12}$/;
             if (!regex.test(inputElement.value)) {
                 inputPhoneNumberCheck = false;
             }
         })
 
         if (!inputPhoneNumberCheck) errorList += MISAText.ErrorMessage.PhoneNumber;
+
+        //check email
+        var inputEmailCheck = true;
+        $("input[email]").each((id, inputElement) => {
+            var regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            if (!regex.test(inputElement.value)) {
+                inputEmailCheck = false;
+            }
+        })
+
+        if (!inputEmailCheck) errorList += MISAText.ErrorMessage.Email;
 
         return errorList;
     }

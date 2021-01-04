@@ -39,7 +39,7 @@
                 <div class="nav-item-icon nav-item-dic"></div>
                 <div class="nav-item-text">Quản lý nhân viên</div>
             </a>
-            <a class="nav-item" href="customer.html">
+            <a class="nav-item">
                 <div class="nav-item-icon nav-item-dic"></div>
                 <div class="nav-item-text">Quản lý khách hàng</div>
             </a>
@@ -234,13 +234,13 @@
                             <div class="m-flex-1">
                                 <div class="m-label">Email (<span class="label-required">*</span>)</div>
                                 <div class="m-control">
-                                    <input id="txtEmail" fieldName="Email" class="input-required" type="text" required />
+                                    <input id="txtEmail" fieldName="Email" class="input-required" type="text" required email />
                                 </div>
                             </div>
                             <div class="m-flex-1 mg-left-10px">
                                 <div class="m-label">Số điện thoại (<span class="label-required">*</span>)</div>
                                 <div class="m-control">
-                                    <input id="txtPhoneNumber" fieldName="PhoneNumber" type="text" required />
+                                    <input id="txtPhoneNumber" fieldName="PhoneNumber" type="text" required phoneNumber />
                                 </div>
                             </div>
                         </div>
@@ -250,17 +250,17 @@
                         <div class="m-row mg-top-0 m-flex">
                             <div class="m-flex-1">
                                 <div class="m-label">Vị trí</div>
-                                <div class="custom-select custom-select1">
+                                <div class="custom-select custom-select1" tabindex="0">
                                     <select id="groupSelectDialog1" fieldName="PositionId" class="m-control">
-                                        <option value="0">Không chọn</option>
+                                        <option value="-1">Không chọn</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="m-flex-1 mg-left-10px">
                                 <div class="m-label">Phòng ban</div>
-                                <div class="custom-select custom-select0">
+                                <div class="custom-select custom-select0" tabindex="0">
                                     <select id="groupSelectDialog0" fieldName="DepartmentId" class="m-control">
-                                        <option value="0">Không chọn</option>
+                                        <option value="-1">Không chọn</option>
                                     </select>
                                 </div>
                             </div>
@@ -288,7 +288,7 @@
                             </div>
                             <div class="m-flex-1 mg-left-10px">
                                 <div class="m-label">Tình trạng công việc</div>
-                                <div class="custom-select custom-select2">
+                                <div class="custom-select custom-select2" tabindex="0">
                                     <select id="groupSelectDialog2" fieldName="WorkStatus" class="m-control">
                                         <option value="-1">Không chọn</option>
                                         <option value="0">Đã nghỉ việc</option>
@@ -315,6 +315,14 @@
         <div class="dialog-content">
             <div class="dialog-body">
                 <span id="errorMsg"></span>
+            </div>
+        </div>
+    </div>
+    <div id="dialog-confirm" class="m-dialog dialog-error">
+        <div class="dialog-content">
+            <div class="dialog-footer">
+                <button id="btnCancelDelete" class="m-btn m-btn-default">Không</button>
+                <button id="btnConfirmDelete" class="m-btn m-btn-default m-btn-cancel">Có</button>
             </div>
         </div>
     </div>

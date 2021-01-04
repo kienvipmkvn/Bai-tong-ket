@@ -99,5 +99,10 @@ namespace MISA.Infrastructure
             var totalItem = _dbConnection.Query<int>(query, commandType: CommandType.Text).FirstOrDefault();
             return totalItem;
         }
+
+        public string GetMaxEmployeeCode()
+        {
+            return _dbConnection.Query<string>($"SELECT EmployeeCode FROM Employee ORDER BY EmployeeCode DESC LIMIT 1 OFFSET 0").FirstOrDefault();
+        }
     }
 }

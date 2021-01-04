@@ -7,8 +7,8 @@ namespace MISA.ApplicationCore.Interfaces
 {
     /// <summary>
     /// employee repository
-    /// createdBy: dtkien (29/12/2020)
     /// </summary>
+    /// createdBy: dtkien (29/12/2020)
     public interface IEmployeeRepository : IBaseRepository<Employee>
     {
         /// <summary>
@@ -25,5 +25,12 @@ namespace MISA.ApplicationCore.Interfaces
         /// <param name="searchKey">từ khoá tìm kiếm</param>
         /// <returns></returns>
         int GetCountCondition(string searchKey, Guid? departmentId = null, Guid? positionId = null);
+
+        /// <summary>
+        /// Lấy mã NV lớn nhất trong db
+        /// </summary>
+        /// <returns></returns>
+        /// createdBy: dtkien (4/1/2021)
+        string GetMaxEmployeeCode();
     }
 }

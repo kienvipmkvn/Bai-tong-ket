@@ -28,6 +28,7 @@ function dropdownFunction(number) {
             c.innerHTML = selElmnt.options[j].innerHTML;
             //set value for each element
             c.setAttribute("value", selElmnt.options[j].value);
+            c.setAttribute("tabindex", 0);
             if (j == 0) c.setAttribute("class", "same-as-selected");
             c.addEventListener("click", function (e) {
                 /*when an item is clicked, update the original select box,
@@ -53,9 +54,24 @@ function dropdownFunction(number) {
                 }
                 h.click();
             });
+
+            $(c).focus(function (e) {
+                $(this).bind('keyup', selectByEnter);
+            })
+
+            $(c).blur(function (e) {
+                $(this).unbind('keyup');
+            })
             b.appendChild(c);
         }
         x[i].appendChild(b);
+        $(x[i]).focus(function (e) {
+            $(this).bind('keyup', openDropdown);
+        })
+
+        $(x[i]).blur(function (e) {
+            $(this).unbind('keyup')
+        })
         a.addEventListener("click", function (e) {
             /*when the select box is clicked, close any other select boxes,
             and open/close the current select box:*/
@@ -66,6 +82,25 @@ function dropdownFunction(number) {
             this.classList.toggle("select-arrow-active");
             this.classList.toggle("select-selected-focus");
         });
+    }
+}
+
+function openDropdown (e) {
+    if (e.originalEvent.key == "Enter") {
+        closeAllSelect(this);
+        $(e.target).children().eq(2).removeClass('select-hide');
+    }
+}
+
+function selectByEnter(e) {
+    if (e.originalEvent.key == "Enter") {
+        var el = e.target.parentNode;
+        $(el).children(".same-as-selected").removeClass('same-as-selected');
+
+        $(el).prev().text($(this).text());
+        $(this).addClass("same-as-selected");
+
+        closeAllSelect(this);
     }
 }
 

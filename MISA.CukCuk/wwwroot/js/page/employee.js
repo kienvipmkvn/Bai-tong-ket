@@ -19,7 +19,18 @@
         position: ({ my: "center", at: "center", of: window }),
         modal: true,
         zIndex: 999
-    })
+    });
+
+    dialogConfirm = $("#dialog-confirm").dialog({
+        autoOpen: false,
+        fluid: true,
+        minWidth: 350,
+        resizable: true,
+        position: ({ my: "center", at: "center", of: window }),
+        modal: true,
+        zIndex: 999,
+        minHeight: 0
+    });
 })
 
 class EmployeeJS extends BaseJS {

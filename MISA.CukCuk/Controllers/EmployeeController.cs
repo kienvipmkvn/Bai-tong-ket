@@ -26,7 +26,6 @@ namespace MISA.CukCuk.Controllers
         /// </summary>
         /// <param name="pageSize">Số lượng bản ghi trong 1 trang.</param>
         /// <param name="pageIndex">Số thứ tự trang.</param>
-        /// <returns></returns>
         [HttpGet("{pageSize}/{pageIndex}")]
         public IActionResult GetPageEmployee(int pageSize, int pageIndex, string searchKey = "", Guid? departmentId = null, Guid? positionId = null)
         {
@@ -55,6 +54,21 @@ namespace MISA.CukCuk.Controllers
             {
                 return NoContent();
             }
+        }
+
+        /// <summary>
+        /// Lấy mã nhân viên tiếp theo
+        /// </summary>
+        [HttpGet("nextEmployeeCode")]
+        public IActionResult GetNextEmployeeCode()
+        {
+            var rs = new ServiceResult()
+            {
+                Data = _employeeService.GetNextEmployeeCode(),
+                Messenger = "Thành công!",
+                MISACode = MISACode.Success
+            };
+            return Ok(rs);
         }
     }
 }

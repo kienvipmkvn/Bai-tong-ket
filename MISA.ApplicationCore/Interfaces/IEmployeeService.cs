@@ -26,5 +26,12 @@ namespace MISA.ApplicationCore.Interfaces
         /// <param name="customerGroupId">nhóm khách hàng</param>
         /// <returns></returns>
         int GetCountCondition(string searchKey, Guid? departmentId = null, Guid? positionId = null);
+
+        /// <summary>
+        /// Lấy mã NV lớn nhất trong db
+        /// </summary>
+        /// <returns></returns>
+        /// createdBy: dtkien (4/1/2021)
+        string GetNextEmployeeCode();
     }
 }

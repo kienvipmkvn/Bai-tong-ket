@@ -29,5 +29,13 @@ namespace MISA.ApplicationCore.Services
         {
             return _employeeRepository.GetCountCondition(searchKey, departmentId, positionId);
         }
+
+        public string GetNextEmployeeCode()
+        {
+            var nvCodeMax = _employeeRepository.GetMaxEmployeeCode();
+            if (nvCodeMax == null) return "NV00001";
+            var maSoMax = Convert.ToInt32(nvCodeMax.Replace("NV", ""));
+            return "NV" + (maSoMax + 1);
+        }
     }
 }

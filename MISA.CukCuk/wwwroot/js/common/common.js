@@ -50,7 +50,7 @@ var MISAText = {
     ErrorMessage: {
         Required: "Bạn chưa điền đầy đủ thông tin; ",
         PhoneNumber: "Số điện thoại gồm 8-11 ký tự số; ",
-
+        Email: "Email không hợp lệ; "
     },
 
     Message: {
