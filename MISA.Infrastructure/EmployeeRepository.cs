@@ -56,7 +56,6 @@ namespace MISA.Infrastructure
                 }
             }
 
-            query += $" ORDER BY CreatedDate DESC";
             query += $" LIMIT {limit} OFFSET {offset}";
             var entities = _dbConnection.Query<Employee>(query, commandType: CommandType.Text);
             return entities;
