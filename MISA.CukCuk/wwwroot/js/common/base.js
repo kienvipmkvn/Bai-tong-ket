@@ -133,12 +133,27 @@ class BaseJS {
         })
 
         //sự kiện thay đổi giá trị tiền tệ
-        $("input[money]").on({
-            keyup: function () {
-                formatCurrency($(this));
+        $(".div-editable[money]").on({
+            focus: function () {
+                this.style.borderColor = "#019160";
+                this.innerText = this.getAttribute("value");
             },
             blur: function () {
-                formatCurrency($(this), "blur");
+                this.style.borderColor = "#bbbbbb";
+                this.setAttribute("value", this.innerText);
+                this.innerHTML = formatMoneyInput(this.innerText);
+            },
+            keypress: function (e) {
+                if (isNaN(String.fromCharCode(e.which)) && e.which != 46) e.preventDefault();
+            },
+            paste: function (e) {
+                let pasteString = (event.clipboardData || window.clipboardData).getData('text');
+                for (var str of pasteString) {
+                    if (isNaN(str) && str != 46) {
+                        e.preventDefault();
+                        break;
+                    }
+                }
             }
         });
     }
@@ -368,7 +383,7 @@ class BaseJS {
         me.currentEntity = selectedEntity;
         me.entityState = MISAEnum.EntityState.Update;
 
-        $("#dialog-detail input[fieldName], #dialog-detail select[fieldName]").each((id, el) => {
+        $("#dialog-detail input[fieldName], #dialog-detail select[fieldName], #dialog-detail .div-editable").each((id, el) => {
             var prop = el.getAttribute("fieldName");
             //TH input
             if (el.tagName == "INPUT") {
@@ -385,22 +400,28 @@ class BaseJS {
                 }
                 //trường hợp khác
                 else {
-                    if (el.getAttribute("money")) {
-                        console.log(el)
-                        console.log(formatCurrency($(el).val()))
-                        $("#txt" + prop).val(formatCurrency($(el)));
-                    }
-
-                    else $('#txt' + prop).val(selectedEntity[prop]);
+                    el.value = selectedEntity[prop];
                 }
             }
+
             //TH dropdown
             else if (el.tagName == "SELECT") {
                 me.getEntityDropdown(selectedEntity[prop], el);
             }
+
+            //TH div editalbe
+            else if (el.tagName == "DIV") {
+                if (el.getAttribute("money")) {
+                    el.setAttribute("value", selectedEntity[prop] ?? "")
+                    el.innerHTML = formatMoneyInput(selectedEntity[prop]);
+                }
+                else {
+                    el.innerHTML = selectedEntity[prop];
+                }
+            }
             //TH khác
             else {
-                $('#txt' + prop).val(selectedEntity[prop]);
+                el.value = selectedEntity[prop];
             }
         })
     }
@@ -417,6 +438,8 @@ class BaseJS {
         var nextCodeResult = await me.getNextEntityCode();
         $("#btnDelete").addClass("display-none");
         $("input").removeClass('border-red');
+        $(".div-editable[money]").removeAttr("value");
+        $(".div-editable[money]").text("");
         $("#dialog-detail select[fieldName]").each(function (id, el) {
             me.getEntityDropdown(-1, el);
         })
@@ -432,7 +455,7 @@ class BaseJS {
     btnSaveOnClick() {
         var me = this;
 
-        var inputs = $('#dialog-detail input[fieldName], #dialog-detail select[fieldName]');
+        var inputs = $('#dialog-detail input[fieldName], #dialog-detail select[fieldName], #dialog-detail .div-editable');
         var entity = {};
         $.each(inputs, function (index, input) {
             var propertyName = $(this).attr('fieldName');
@@ -452,6 +475,15 @@ class BaseJS {
                     entity[propertyName] = selectedValue;
             }
 
+            else if (this.tagName == "DIV") {
+                //TH money lấy giá trị là attr value
+                if ($(this).attr("money")) {
+                    entity[propertyName] = $(this).attr("value");
+                }
+                else {
+                    entity[propertyName] = this.innerText;
+                }
+            }
             else {
                 entity[propertyName] = value;
             }

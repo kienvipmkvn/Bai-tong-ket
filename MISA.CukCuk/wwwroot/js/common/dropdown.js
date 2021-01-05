@@ -13,6 +13,7 @@ function dropdownFunction(number) {
         /*for each element, create a new DIV that will act as the selected item:*/
         a = document.createElement("DIV");
         a.setAttribute("class", "select-selected");
+        a.setAttribute("tabindex", 0);
         if (x[i].className.includes(' no-border')) {
             a.classList.add('no-border');
         }
@@ -56,22 +57,28 @@ function dropdownFunction(number) {
             });
 
             $(c).focus(function (e) {
+                this.style.backgroundColor = "#E9EBEE"
                 $(this).bind('keyup', selectByEnter);
             })
 
-            $(c).blur(function (e) {
-                $(this).unbind('keyup');
-            })
+            if (j < ll - 1) {
+                $(c).blur(function (e) {
+                    this.style.removeProperty("background-color");
+                    $(this).unbind('keyup');
+                })
+            }
+            else {
+                $(c).blur(function (e) {
+                    this.style.removeProperty("background-color");
+                    $(this).unbind('keyup');
+                    if (e.relatedTarget.nextSibling != this) {
+                        closeAllSelect();
+                    }
+                })
+            }
             b.appendChild(c);
         }
         x[i].appendChild(b);
-        $(x[i]).focus(function (e) {
-            $(this).bind('keyup', openDropdown);
-        })
-
-        $(x[i]).blur(function (e) {
-            $(this).unbind('keyup')
-        })
         a.addEventListener("click", function (e) {
             /*when the select box is clicked, close any other select boxes,
             and open/close the current select box:*/
@@ -82,13 +89,20 @@ function dropdownFunction(number) {
             this.classList.toggle("select-arrow-active");
             this.classList.toggle("select-selected-focus");
         });
+        $(a).focus(function (e) {
+            $(this).bind('keyup', openDropdown);
+        })
+
+        $(a).blur(function (e) {
+            $(this).unbind('keyup')
+        })
     }
 }
 
 function openDropdown (e) {
     if (e.originalEvent.key == "Enter") {
         closeAllSelect(this);
-        $(e.target).children().eq(2).removeClass('select-hide');
+        $(e.target).next().removeClass('select-hide');
     }
 }
 
@@ -99,6 +113,7 @@ function selectByEnter(e) {
 
         $(el).prev().text($(this).text());
         $(this).addClass("same-as-selected");
+        this.click();
 
         closeAllSelect(this);
     }

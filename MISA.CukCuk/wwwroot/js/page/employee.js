@@ -18,7 +18,8 @@
         resizable: true,
         position: ({ my: "center", at: "center", of: window }),
         modal: true,
-        zIndex: 999
+        zIndex: 999,
+        closeOnEscape: true
     });
 
     dialogConfirm = $("#dialog-confirm").dialog({
@@ -38,6 +39,7 @@ class EmployeeJS extends BaseJS {
         super("EmployeeId");
         dropdownFunction(-1);
         dropdownFunction(2);
+        dropdownFunction(3);
     }
 
     setApiRouter() {

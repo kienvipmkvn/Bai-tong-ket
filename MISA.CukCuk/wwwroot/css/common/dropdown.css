@@ -1,6 +1,7 @@
 .custom-select {
     position: relative;
 }
+
 .no-border{
     border: none !important;
 }
@@ -37,6 +38,11 @@
     .select-selected.select-arrow-active:after {
         border-color: transparent transparent #bbbbbb transparent;
         top: 12px;
+    }
+
+    .select-selected:focus {
+        border: 1px solid #019160 !important;
+        border-radius: 4px
     }
 
 /* style the items (options), including the selected item: */
