@@ -43,6 +43,8 @@ namespace MISA.ApplicationCore.Entities
         /// Email
         /// </summary>
         [Required]
+        [DisplayName("Email")]
+        [Pattern("^(([^<>()[\\]\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@(([^<>()[\\]\\.,;:\\s@\\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\\"]{2,})$")]
         public string Email { get; set; }
 
         /// <summary>
@@ -51,6 +53,7 @@ namespace MISA.ApplicationCore.Entities
         [CheckDuplicate]
         [Required]
         [DisplayName("Số điện thoại")]
+        [Pattern("^(\\+)?([0-9]){8,12}$")]
         public string PhoneNumber { get; set; }
 
         /// <summary>
@@ -64,6 +67,7 @@ namespace MISA.ApplicationCore.Entities
         [Required]
         [CheckDuplicate]
         [DisplayName("Số CMT/CCCD")]
+        [Pattern("(^([0-9]){9}$)|(^([0-9]){12}$)")]
         public string IdentityNumber { get; set; }
 
         /// <summary>

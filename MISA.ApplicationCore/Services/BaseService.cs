@@ -4,6 +4,7 @@ using MISA.ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MISA.ApplicationCore.Services
 {
@@ -164,6 +165,22 @@ namespace MISA.ApplicationCore.Services
                     {
                         isValidate = false;
                         mesArrayError.Add(msg ?? Properties.Resources.Msg_MaxLength.Replace("{0}", length.ToString()).Replace("{1}", displayName));
+                        _serviceResult.MISACode = MISACode.NotValid;
+                        _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
+                    }
+                }
+
+                if (property.IsDefined(typeof(Pattern), false))
+                {
+                    // Lấy độ dài đã khai báo
+                    var attributePattern = property.GetCustomAttributes(typeof(Pattern), true)[0];
+                    var regexStr = (attributePattern as Pattern).RegexStr;
+
+                    var regex = new Regex(regexStr, RegexOptions.IgnoreCase);
+                    if (propertyValue !=null && !regex.IsMatch(propertyValue.ToString()))
+                    {
+                        isValidate = false;
+                        mesArrayError.Add(Properties.Resources.Msg_PatternErr.Replace("{0}", displayName));
                         _serviceResult.MISACode = MISACode.NotValid;
                         _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
                     }

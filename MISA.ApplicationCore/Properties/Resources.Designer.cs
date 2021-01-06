@@ -124,7 +124,7 @@ namespace MISA.ApplicationCore.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thông tin {0} đã có trên hệ thống.
+        ///   Looks up a localized string similar to Thông tin {0} đã có trên hệ thống&lt;/br&gt;.
         /// </summary>
         public static string Msg_Duplicate {
             get {
@@ -133,7 +133,7 @@ namespace MISA.ApplicationCore.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dữ liệu không hợp lệ.
+        ///   Looks up a localized string similar to Dữ liệu không hợp lệ&lt;/br&gt;.
         /// </summary>
         public static string Msg_IsNotValid {
             get {
@@ -142,7 +142,7 @@ namespace MISA.ApplicationCore.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thông tin {0} chứa tối đa {1} ký tự.
+        ///   Looks up a localized string similar to Thông tin {0} chứa tối đa {1} ký tự&lt;/br&gt;.
         /// </summary>
         public static string Msg_MaxLength {
             get {
@@ -151,7 +151,16 @@ namespace MISA.ApplicationCore.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thông tin {0} không được phép để trống.
+        ///   Looks up a localized string similar to Thông tin {0} không hợp lệ&lt;/br&gt;.
+        /// </summary>
+        public static string Msg_PatternErr {
+            get {
+                return ResourceManager.GetString("Msg_PatternErr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thông tin {0} không được phép để trống&lt;/br&gt;.
         /// </summary>
         public static string Msg_Required {
             get {

@@ -51,7 +51,7 @@ var MISAText = {
         Required: "Bạn chưa điền đầy đủ thông tin</br> ",
         PhoneNumber: "Số điện thoại gồm 8-11 ký tự số</br> ",
         Email: "Email không hợp lệ</br> ",
-        IdentityNumber: "Số CMT/CCCD gồm 8 hoặc 12 ký tự số</br> "
+        IdentityNumber: "Số CMT/CCCD gồm 9 hoặc 12 ký tự số</br> "
     },
 
     Message: {

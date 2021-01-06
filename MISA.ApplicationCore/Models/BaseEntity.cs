@@ -46,6 +46,16 @@ namespace MISA.ApplicationCore.Models
             this.ErrorMsg = erroMsg;
         }
     }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class Pattern : Attribute
+    {
+        public string RegexStr { get; set; }
+        public Pattern(string regex)
+        {
+            RegexStr = regex;
+        }
+    }
     #endregion
 
     /// <summary>
