@@ -48,9 +48,10 @@ var MISAEnum = {
 var MISAText = {
     ErrorOccured: "Có lỗi xảy ra!",
     ErrorMessage: {
-        Required: "Bạn chưa điền đầy đủ thông tin; ",
-        PhoneNumber: "Số điện thoại gồm 8-11 ký tự số; ",
-        Email: "Email không hợp lệ; "
+        Required: "Bạn chưa điền đầy đủ thông tin</br> ",
+        PhoneNumber: "Số điện thoại gồm 8-11 ký tự số</br> ",
+        Email: "Email không hợp lệ</br> ",
+        IdentityNumber: "Số CMT/CCCD gồm 8 hoặc 12 ký tự số</br> "
     },
 
     Message: {

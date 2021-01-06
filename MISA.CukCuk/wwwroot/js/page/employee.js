@@ -46,4 +46,21 @@ class EmployeeJS extends BaseJS {
         this.entityRouter = "/api/v1/employee";
         this.dropdownRouters.push(...["/api/v1/department", "/api/v1/position"]);
     }
+
+    checkOtherData() {
+        //check identity number
+        var errMsg = "";
+        var inputIdentityNumberCheck = true;
+        $("input[identityNumber]").each((id, inputElement) => {
+            //số cmt có 9 hoặc 12 chữ số
+            var regex = /(^([0-9]){9}$)|(^([0-9]){12}$)/;
+            if (inputElement.value != "" && !regex.test(inputElement.value)) {
+                inputIdentityNumberCheck = false;
+            }
+        })
+
+        if (!inputIdentityNumberCheck) errMsg += MISAText.ErrorMessage.IdentityNumber;
+
+        return errMsg;
+    }
 }

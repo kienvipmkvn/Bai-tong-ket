@@ -685,7 +685,7 @@ class BaseJS {
         var inputPhoneNumberCheck = true;
         $("input[phoneNumber]").each((id, inputElement) => {
             var regex = /^(\+)?([0-9]){8,12}$/;
-            if (!regex.test(inputElement.value)) {
+            if (inputElement.value.trim() != "" && !regex.test(inputElement.value)) {
                 inputPhoneNumberCheck = false;
             }
         })
@@ -696,14 +696,24 @@ class BaseJS {
         var inputEmailCheck = true;
         $("input[email]").each((id, inputElement) => {
             var regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-            if (!regex.test(inputElement.value)) {
+            if (inputElement.value!="" && !regex.test(inputElement.value)) {
                 inputEmailCheck = false;
             }
         })
 
         if (!inputEmailCheck) errorList += MISAText.ErrorMessage.Email;
 
+        if (this.checkOtherData() != "") errorList += this.checkOtherData();
+
         return errorList;
+    }
+
+    /**
+     * Validate các dữ liệu khác
+     * CreatedBy: dtkien1 (6/1/2021)
+     * */
+    checkOtherData() {
+
     }
 
     /**
@@ -711,8 +721,8 @@ class BaseJS {
      * createdBy: dtkien(29/12/2020)
      * */
     setResultDialogTitle(title, message = "") {
-        $("#ui-id-2").text(title);
-        $("#errorMsg").text(message)
+        $("#ui-id-2").html(title);
+        $("#errorMsg").html(message)
         dialogError.dialog('open');
     }
 }
