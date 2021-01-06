@@ -1,19 +1,19 @@
 ﻿@import url('../../content/font/fontawesome-5.15.1/css/all.css');
 @import url('common.css');
-@import url('navbar.css');
-@import url('header.css');
-@import url('button.css');
 @import url('icon.css');
-@import url('toolbar.css');
-@import url('input.css');
-@import url('content.css');
-@import url('table.css');
-@import url('grid.css');
-@import url('dialog.css');
-@import url('ui-custom.css');
-@import url('radio.css');
-@import url('dropdown.css');
-@import url('scrollbar.css');
+@import url('../component/navbar.css');
+@import url('../component/header.css');
+@import url('../component/toolbar.css');
+@import url('../component/content.css');
+@import url('../component/table.css');
+@import url('../component/grid.css');
+@import url('../component/dialog.css');
+@import url('../control/input.css');
+@import url('../control/button.css');
+@import url('../control/radio.css');
+@import url('../control/dropdown.css');
+@import url('../control/scrollbar.css');
+@import url('../jquery-ui-custom/ui-custom.css');
 
 body
 {
