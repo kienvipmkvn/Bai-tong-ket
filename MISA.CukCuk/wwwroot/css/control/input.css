@@ -22,3 +22,27 @@
     .input-search {
         padding-left: 40px;
     }
+
+.validate-msg {
+    position: absolute;
+    background-color: #FF4747;
+    bottom: 42px;
+    max-width: 170px;
+    width: 50%;
+    height: 4em;
+    left: 25%;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    padding: 0px 8px;
+}
+
+    .validate-msg .square-arrow {
+        position: relative;
+        width: 10px;
+        height: 10px;
+        background-color: #FF4747;
+        left: 50%;
+        top: 47px;
+        transform: rotate(45deg);
+    }

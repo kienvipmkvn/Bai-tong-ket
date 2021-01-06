@@ -119,6 +119,7 @@ class BaseJS {
             }
         }).focus(function () {
             $(this).removeClass('border-red');
+            me.removePopupError(this);
         })
 
         //Hiển thị thông tin chi tiết khi nhấn đúp chuột chọn 1 bản ghi trên danh sách dữ liệu:
@@ -372,6 +373,7 @@ class BaseJS {
      * CreatedBy: dtkien1 (29/12/2020)
      */
     rowDbClick(e) {
+        this.removeAllPopupError();
         var me = this;
         me.method = "PUT"
         dialogDetail.dialog('open');
@@ -431,6 +433,7 @@ class BaseJS {
      * CreatedBy: dtkien1 (29/12/2020)
      */
     async btnAddOnClick() {
+        this.removeAllPopupError();
         var me = this;
         this.currentEntity = null;
         this.method = "POST"
@@ -492,7 +495,7 @@ class BaseJS {
         //nếu input k hợp lệ thì return
         var validateMsg = me.checkInputData();
         if (validateMsg != "") {
-            me.setResultDialogTitle(MISAText.ErrorOccured, validateMsg);
+            //me.setResultDialogTitle(MISAText.ErrorOccured, validateMsg);
             return;
         }
         $('.loading-modal').removeClass('loaded');
@@ -670,12 +673,13 @@ class BaseJS {
      * createdBy: dtkien(29/12/2020)
      */
     checkInputData() {
-        //check required
+        var me = this;
         var errorList = "";
         var inputRequiredCheck = true;
         $("input[required]").each((id, inputElement) => {
             if (inputElement.value == "") {
                 inputRequiredCheck = false;
+                me.createErrorMessage(inputElement, MISAText.ErrorMessage.Required2);
             }
         })
 
@@ -687,6 +691,7 @@ class BaseJS {
             var regex = /^(\+)?([0-9]){8,12}$/;
             if (inputElement.value.trim() != "" && !regex.test(inputElement.value)) {
                 inputPhoneNumberCheck = false;
+                me.createErrorMessage(inputElement, MISAText.ErrorMessage.PhoneNumber);
             }
         })
 
@@ -696,8 +701,9 @@ class BaseJS {
         var inputEmailCheck = true;
         $("input[email]").each((id, inputElement) => {
             var regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-            if (inputElement.value!="" && !regex.test(inputElement.value)) {
+            if (inputElement.value != "" && !regex.test(inputElement.value)) {
                 inputEmailCheck = false;
+                me.createErrorMessage(inputElement, MISAText.ErrorMessage.Email);
             }
         })
 
@@ -708,6 +714,36 @@ class BaseJS {
         return errorList;
     }
 
+    /**
+     * Tạo popup hiển thị lỗi
+     * @param {any} inputElement
+     * @param {any} errMsg
+     * createdBy: dtkien1 (6/1/2021)
+     */
+    createErrorMessage(inputElement, errMsg) {
+        $(inputElement).addClass("border-red");
+        var x = $(inputElement).parent();
+        if ($(x).find(".validate-msg").length == 0) {
+            var d = document.createElement("div");
+            $(d).addClass("validate-msg")
+            d.addEventListener("click", function () {
+                $(this).addClass("display-none");
+            })
+            $(x).append(d);
+        }
+        else {
+            $(x).children(".validate-msg").removeClass("display-none");
+        }
+        $(inputElement).next().html('<div class="square-arrow"></div>' + errMsg);
+    }
+
+    removePopupError(inputElement) {
+        $(inputElement).parent().children().eq(1).addClass("display-none");
+    }
+
+    removeAllPopupError() {
+        $(".validate-msg").addClass("display-none");
+    }
     /**
      * Validate các dữ liệu khác
      * CreatedBy: dtkien1 (6/1/2021)

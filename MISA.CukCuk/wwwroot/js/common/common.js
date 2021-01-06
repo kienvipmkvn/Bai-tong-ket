@@ -49,6 +49,7 @@ var MISAText = {
     ErrorOccured: "Có lỗi xảy ra!",
     ErrorMessage: {
         Required: "Bạn chưa điền đầy đủ thông tin</br> ",
+        Required2: "Thông tin này không được phép để trống</br> ",
         PhoneNumber: "Số điện thoại gồm 8-11 ký tự số</br> ",
         Email: "Email không hợp lệ</br> ",
         IdentityNumber: "Số CMT/CCCD gồm 9 hoặc 12 ký tự số</br> "

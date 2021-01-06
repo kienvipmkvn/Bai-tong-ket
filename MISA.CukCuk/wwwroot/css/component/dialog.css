@@ -58,6 +58,10 @@
   font-weight: bold;
 }
 
+.m-control{
+    position: relative;
+}
+
 .dialog-content .dialog-body {
   padding: 0 24px 24px;
 }

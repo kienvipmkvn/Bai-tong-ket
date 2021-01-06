@@ -13,6 +13,7 @@
     border: none;
     cursor: pointer;
     justify-content: center;
+    min-width: 100px;
 }
 
     .m-btn:hover,.m-btn:focus {
@@ -54,6 +55,7 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     width: 40px;
+    min-width: 0;
 }
 
 .m-btn-toolbar {

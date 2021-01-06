@@ -49,6 +49,7 @@ class EmployeeJS extends BaseJS {
 
     checkOtherData() {
         //check identity number
+        var me = this;
         var errMsg = "";
         var inputIdentityNumberCheck = true;
         $("input[identityNumber]").each((id, inputElement) => {
@@ -56,6 +57,7 @@ class EmployeeJS extends BaseJS {
             var regex = /(^([0-9]){9}$)|(^([0-9]){12}$)/;
             if (inputElement.value != "" && !regex.test(inputElement.value)) {
                 inputIdentityNumberCheck = false;
+                me.createErrorMessage(inputElement, MISAText.ErrorMessage.IdentityNumber);
             }
         })
 
