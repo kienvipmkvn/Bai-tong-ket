@@ -19,7 +19,8 @@
         position: ({ my: "center", at: "center", of: window }),
         modal: true,
         zIndex: 999,
-        closeOnEscape: true
+        closeOnEscape: true,
+        minHeight: 0
     });
 
     dialogConfirm = $("#dialog-confirm").dialog({
@@ -32,11 +33,15 @@
         zIndex: 999,
         minHeight: 0
     });
+
+    $("#btnCloseDialog").click(function () {
+        dialogError.dialog('close');
+    })
 })
 
 class EmployeeJS extends BaseJS {
     constructor() {
-        super("EmployeeId");
+        super("Employee");
         dropdownFunction(-1);
         dropdownFunction(2);
         dropdownFunction(3);

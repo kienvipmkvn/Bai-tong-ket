@@ -2,9 +2,9 @@
  * Base class dùng chung
  */
 class BaseJS {
-    constructor(_idPropertyName, isHaveDropdown = true) {
+    constructor(_entityName, isHaveDropdown = true) {
         //tên trường khoá chính trong db
-        this.idPropertyName = _idPropertyName;
+        this.entityName = _entityName;
         this.pageIndex = 0;
         this.pageSize = 17;
         this.totalPage = 0;
@@ -129,6 +129,11 @@ class BaseJS {
 
         //sự kiện thay đổi nội dung tìm kiếm
         $("#txtSearch").change(() => {
+            var val = $("#txtSearch").val();
+            if (val.includes("'") || val.includes('"')) {
+                me.setResultDialogTitle("Lỗi!", "Không được dùng dấu nháy!");
+                return;
+            }
             me.currentSearchKey = $("#txtSearch").val();
             me.loadData(0, me.pageSize, me.currentSearchKey, me.currentDropdowns);
         })
@@ -146,13 +151,19 @@ class BaseJS {
             },
             keypress: function (e) {
                 if (isNaN(String.fromCharCode(e.which)) && e.which != 46) e.preventDefault();
+                else if (e.which === 46) {
+                    if (this.innerText.lastIndexOf(".") != -1) e.preventDefault();
+                }
             },
             paste: function (e) {
                 let pasteString = (event.clipboardData || window.clipboardData).getData('text');
                 for (var str of pasteString) {
-                    if (isNaN(str) && str != 46) {
+                    if (isNaN(str) && str != ".") {
                         e.preventDefault();
                         break;
+                    }
+                    else if (str === ".") {
+                        if (this.innerText.lastIndexOf(".") != -1) e.preventDefault();
                     }
                 }
             }
@@ -245,7 +256,7 @@ class BaseJS {
                 var i = pageIndex * pageSize + 1;
                 var index = 0;
                 for (var entity of me.entities) {
-                    if (me.isUpdating && me.currentEntity[me.idPropertyName] == entity[me.idPropertyName]) {
+                    if (me.isUpdating && me.currentEntity[me.entityName + "Id"] == entity[me.entityName + "Id"]) {
                         appendElement += `<tr class="selected-row" index="${index}">`;
                         me.isUpdating = false;
                     }
@@ -447,7 +458,7 @@ class BaseJS {
             me.getEntityDropdown(-1, el);
         })
         $('#dialog-detail input[fieldName]').val(null);
-        $(`#txt${me.idPropertyName.replace("Id", "Code")}`).val(nextCodeResult.Data ?? "");
+        $(`#txt${me.entityName + "Code"}`).val(nextCodeResult.Data ?? "");
         dialogDetail.dialog('open');
     }
 
@@ -515,7 +526,7 @@ class BaseJS {
         me.method = "DELETE";
 
         $("#ui-id-3").removeClass("ui-dialog-title")
-        $("#ui-id-3").text(`Bạn có chắc chắn muốn xoá nhân viên ${me.currentEntity[me.idPropertyName.replace("Id", "Code")]}`)
+        $("#ui-id-3").text(`Bạn có chắc chắn muốn xoá nhân viên ${me.currentEntity[me.entityName + "Code"]}`)
         dialogConfirm.dialog("open");
 
         $("#btnCancelDelete").unbind('click');
@@ -584,7 +595,7 @@ class BaseJS {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                url: me.host + me.entityRouter + "/" + me.currentEntity[me.idPropertyName],
+                url: me.host + me.entityRouter + "/" + me.currentEntity[me.entityName + "Id"],
                 method: me.method,
                 async: true,
                 data: JSON.stringify(data)
@@ -620,7 +631,7 @@ class BaseJS {
         $('.loading-modal').removeClass('loaded');
         try {
             $.ajax({
-                url: me.host + me.entityRouter + "/" + me.currentEntity[me.idPropertyName],
+                url: me.host + me.entityRouter + "/" + me.currentEntity[me.entityName + "Id"],
                 method: me.method,
                 async: true
             }).done(() => {

@@ -89,3 +89,7 @@
     background-color: #019160;
     margin: 8px 0px;
 }
+
+.dialog-error{
+    padding-top: 24px !important;
+}

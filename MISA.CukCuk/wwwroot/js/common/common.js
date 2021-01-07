@@ -132,7 +132,7 @@ function getGender(gender) {
 function formatMoney(money) {
     var value = parseFloat(money);
     if (value) {
-        return value.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+        return value.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     }
     return "";
 }
@@ -144,9 +144,9 @@ function formatMoney(money) {
  */
 function formatMoneyInput(money) {
     var value = null;
-    if (money) value = parseFloat(money.toString().replace(",", "."));
+    if (money) value = parseFloat(money.toString());
     if (value != null) {
-        return value.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + "   <i>(VND)<i>";
+        return value.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "   <i>(VND)<i>";
     }
     return "";
 }
